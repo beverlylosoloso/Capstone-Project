@@ -39,6 +39,26 @@
 				<?php echo Form::input('address', Input::post('address', isset($user) ? $user->address : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Address')); ?>
 
 		</div>
+		<div class="form-group">
+			<?php echo Form::label('Hospital Name', 'hospital_name', array('class'=>'control-label')); ?>
+
+				<?php echo Form::input('hospital_name', Input::post('hospital_name', isset($user) ? $user->hospital_name : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Address')); ?>
+
+		</div>
+		<div class="form-group">
+			<?php echo Form::label('Website', 'website', array('class'=>'control-label')); ?>
+
+				<?php echo Form::input('website', Input::post('website', isset($user) ? $user->website : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Address')); ?>
+
+		</div>
+
+		<div class="form-group">
+			<?php echo Form::label('', 'role_id', array('class'=>'control-label')); ?>
+
+				<?php echo Form::input('role_id', Input::post('role_id', isset($user) ? $user->role_id : '1'), array('class' => 'col-md-4 form-control', 'placeholder'=>'Address', 'type'=>'hidden')); ?>
+
+		</div>
+		
 
 		
 		

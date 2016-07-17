@@ -17,16 +17,18 @@
     <link href="#" rel="stylesheet" id="theme-color">
     <!-- END  MANDATORY STYLE -->
     <!-- BEGIN PAGE LEVEL STYLE -->
+    <?php echo Asset::css([
+    	'icons/icons.min.css',
+    	'bootstrap.min.css',
+    	'plugins.min.css',
+    	'animate-custom.css',
+    	'bootstrap.css'
+    ]); ?>
 
-    <?= Asset::css('icons/icons.min.css'); ?>
-    <?= Asset::css('bootstrap.min.css'); ?>
-    <?= Asset::css('plugins.min.css'); ?>
-    <?= Asset::css('style.min.css'); ?>
-    <?= Asset::css('animate-custom.css'); ?>
-	<?php echo Asset::css('bootstrap.css'); ?>
 	<style>
 		body { margin: 50px; }
 	</style>
+
 	<?php echo Asset::js(array(
 		'http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js',
 		'bootstrap.js',
@@ -57,14 +59,45 @@
 					<?php
 						$files = new GlobIterator(APPPATH.'classes/controller/admin/*.php');
 						foreach($files as $file)
-						{
+						{ 
 							$section_segment = $file->getBasename('.php');
-							$section_title = Inflector::humanize($section_segment);
-							?>
-							<li class="<?php echo Uri::segment(2) == $section_segment ? 'active' : '' ?>">
-								<?php echo Html::anchor('admin/'.$section_segment, $section_title) ?>
-							</li>
-							<?php
+							
+							//START DOH ACCESS
+							if ($current_user->role_id == 2) {
+								if ($section_segment == "registereds" || $section_segment == "pendings") {
+									$section_title = Inflector::humanize($section_segment);
+									?>
+									<li class="<?php echo Uri::segment(2) == $section_segment ? 'active' : '' ?>">
+										<?php echo Html::anchor('admin/'.$section_segment, $section_title) ?>
+									</li>
+									<?php
+								}
+							}
+							//END DOH ACCESS
+
+							//START HOSPITAL ACCESS
+							if ($current_user->role_id == 1) {
+								if ($section_segment == "insurances" || $section_segment == "personal_info") {
+									$section_title = Inflector::humanize($section_segment);
+									?>
+									<li class="<?php echo Uri::segment(2) == $section_segment ? 'active' : '' ?>">
+										<?php echo Html::anchor('admin/'.$section_segment, $section_title) ?>
+									</li>
+									<?php
+								}
+							}
+							//END HOSPITAL ACCESS
+
+							//START ADMIN ACCESS
+							if ($current_user->role_id == 3) {
+								$section_title = Inflector::humanize($section_segment);
+								?>
+								<li class="<?php echo Uri::segment(2) == $section_segment ? 'active' : '' ?>">
+									<?php echo Html::anchor('admin/'.$section_segment, $section_title) ?>
+								</li>
+								<?php
+							}
+							//END AMIN ACCESS 
 						}
 					?>
 				</ul>
@@ -126,7 +159,6 @@
     <script src="assets/plugins/jquery-migrate-1.2.1.js"></script>
     <script src="assets/plugins/jquery-ui/jquery-ui-1.10.4.min.js"></script>
     <script src="assets/plugins/jquery-mobile/jquery.mobile-1.4.2.js"></script>
-    <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="assets/plugins/jquery.cookie.min.js" type="text/javascript"></script>
     <!-- END MANDATORY SCRIPTS -->
     <!-- BEGIN PAGE LEVEL SCRIPTS -->

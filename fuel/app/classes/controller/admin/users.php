@@ -5,6 +5,7 @@ class Controller_Admin_Users extends Controller_Admin
 	public function action_index()
 	{
 		$data['users'] = Model_User::find('all');
+		$data['roles'] = Model_Role::find('all');
 		$this->template->title = "Users";
 		$this->template->content = View::forge('admin/users/index', $data);
 
@@ -18,6 +19,80 @@ class Controller_Admin_Users extends Controller_Admin
 		$this->template->content = View::forge('admin/users/view', $data);
 
 	}
+
+
+
+
+
+
+
+//START CREATE HOSPITAL
+public function action_create_hospital()
+	{
+		if (Input::method() == 'POST')
+		{
+			$val = Model_User::validate('create');
+
+			if ($val->run())
+			{
+				$user = Model_User::forge(array(
+					'username' => Input::post('username'),
+					'password' => Auth::instance()->hash_password(Input::post('password')),
+					'group' => Input::post('group'),
+					'email' => Input::post('email'),
+					'contact_number' => Input::post('contact_number'),
+					'address' => Input::post('address'),
+					'website' => Input::post('website'),
+					'role_id' => Input::post('role_id'),
+				));
+				$user->hospital[] = Model_Hospital::forge(array(
+					'hospital_name' => Input::post('hospital_name'),
+					'website' => Input::post('website'),
+					'updated_at' => 0,
+				));	
+				if ($user->save())
+				{
+					Session::set_flash('success', e('Added user #'.$user->id.'.'));
+
+					Response::redirect('admin/users');
+				}
+
+				else
+				{
+					Session::set_flash('error', e('Could not save user.'));
+				}
+			}
+			else
+			{
+				Session::set_flash('error', $val->error());
+			}
+		}
+
+		$this->template->title = "Users";
+		$this->template->content = View::forge('admin/users/create_hospital');
+
+	}
+
+//END CREATE HOSPITAL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	public function action_create()
 	{

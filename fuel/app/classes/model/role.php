@@ -1,11 +1,9 @@
 <?php
-class Model_Category extends \Orm\Model
+class Model_Role extends \Orm\Model
 {
 	protected static $_properties = array(
 		'id',
-		'category_name',
-		'created_at',
-		'updated_at',
+		'role_description',
 	);
 
 	protected static $_observers = array(
@@ -22,7 +20,7 @@ class Model_Category extends \Orm\Model
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
-		$val->add_field('category_name', 'Category Name', 'required|max_length[255]');
+		$val->add_field('role_description', 'Role Description', 'required|max_length[255]');
 
 		return $val;
 	}

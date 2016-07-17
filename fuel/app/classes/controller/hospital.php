@@ -1,6 +1,6 @@
 <?php
 
-class Controller_Admin extends Controller_Base
+class Controller_Hospital extends Controller_Base
 {
 	public $template = 'admin/template';
 
@@ -8,12 +8,12 @@ class Controller_Admin extends Controller_Base
 	{
 		parent::before();
 
-		if (Request::active()->controller !== 'Controller_Admin' or ! in_array(Request::active()->action, array('login', 'logout')))
+		if (Request::active()->controller !== 'Controller_Hospital' or ! in_array(Request::active()->action, array('login', 'logout')))
 		{
 			if (Auth::check())
 			{
-				$admin_group_id = Config::get('auth.driver', 'Simpleauth') == 'Ormauth' ? 6 : 100;
-				if ( ! Auth::member($admin_group_id))
+				$hospital_group_id = Config::get('auth.driver', 'Simpleauth') == 'Ormauth' ? 6 : 50;
+				if ( ! Auth::member($hospital_group_id))
 				{
 					Session::set_flash('error', e('You don\'t have access to the admin panel'));
 					Response::redirect('/');
@@ -21,7 +21,7 @@ class Controller_Admin extends Controller_Base
 			}
 			else
 			{
-				Response::redirect('admin/login');
+				Response::redirect('hospital/login');
 			}
 		}
 	}
@@ -29,7 +29,7 @@ class Controller_Admin extends Controller_Base
 	public function action_login()
 	{
 		// Already logged in
-		Auth::check() and Response::redirect('admin');
+		Auth::check() and Response::redirect('hospital');
 
 		$val = Validation::forge();
 
@@ -54,7 +54,7 @@ class Controller_Admin extends Controller_Base
 								// credentials ok, go right in
 								$current_user = Model\Auth_User::find($id[1]);
 								Session::set_flash('success', e('Welcome, '.$current_user->username));
-								Response::redirect('admin');
+								Response::redirect('hospital');
 							}
 						}
 					}
@@ -71,7 +71,7 @@ class Controller_Admin extends Controller_Base
 		}
 
 		$this->template->title = 'Login';
-		$this->template->content = View::forge('admin/login', array('val' => $val), false);
+		$this->template->content = View::forge('hospital/login', array('val' => $val), false);
 	}
 
 	/**
@@ -83,7 +83,7 @@ class Controller_Admin extends Controller_Base
 	public function action_logout()
 	{
 		Auth::logout();
-		Response::redirect('admin');
+		Response::redirect('hospital');
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Controller_Admin extends Controller_Base
 	public function action_index()
 	{
 		$this->template->title = 'Dashboard';
-		$this->template->content = View::forge('admin/dashboard');
+		$this->template->content = View::forge('hospital/dashboard');
 	}
 
 }

@@ -6,7 +6,7 @@ class Controller_Base extends Controller_Template
 	{
 		parent::before();
 
-		$this->current_user = null;
+		$this->current_user =  null;
 
 		foreach (\Auth::verified() as $driver)
 		{

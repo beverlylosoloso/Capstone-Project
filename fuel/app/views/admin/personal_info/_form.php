@@ -31,7 +31,12 @@
 				<?php echo Form::input('contact_number', Input::post('contact_number', isset($user) ? $user->contact_number : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Contact number')); ?>
 
 		</div>
-		
+		<div class="form-group">
+			<?php echo Form::label('hospital_name', 'hospital_name', array('class'=>'control-label')); ?>
+
+				<?php echo Form::input('hospital_name', Input::post('hospital_name', isset($user) ? $user->hospital_name : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Hospital and Clinic')); ?>
+
+		</div>
 		
 		<div class="form-group">
 			<?php echo Form::label('Address', 'address', array('class'=>'control-label')); ?>
@@ -40,7 +45,12 @@
 
 		</div>
 
-		
+		<div class="form-group">
+			<?php echo Form::label('URL', 'url', array('class'=>'control-label')); ?>
+
+				<?php echo Form::input('url', Input::post('url', isset($user) ? $user->url : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'URL')); ?>
+
+		</div>
 		
 		<div class="form-group">
 			<label class='control-label'>&nbsp;</label>

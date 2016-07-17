@@ -8,10 +8,8 @@ class Model_User extends \Orm\Model
 		'group',
 		'email',
 		'contact_number',
-		'hospital_name',
 		'address',
-		'url',
-		'Website',
+		'role_id',
 		'created_at',
 		'updated_at',
 	);
@@ -27,6 +25,17 @@ class Model_User extends \Orm\Model
 		),
 	);
 
+	protected static $_has_many = array(
+		'hospital' => array(
+			'model_to' => 'Model_Hospital',
+			'key_from' => 'id',
+			'key_to' => 'user_id',
+			'cascade_delete' => true,
+			'cascade_save' => true,
+		),
+	);
+
+
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);
@@ -35,10 +44,8 @@ class Model_User extends \Orm\Model
 		$val->add_field('group', 'Group', 'required|valid_string[numeric]');
 		$val->add_field('email', 'Email', 'required|valid_email|max_length[255]');
 		$val->add_field('contact_number', 'Contact Number', 'required|max_length[20]');
-		$val->add_field('hospital_name', 'Hospital_name', 'required|max_length[50]');
 		$val->add_field('address', 'Address', 'required|max_length[50]');
-		$val->add_field('url', 'URL', 'required|valid_email|max_length[255]');
-
+		$val->add_field('role_id', 'Role ID', 'required|valid_string[numeric]');
 		return $val;
 	}
 

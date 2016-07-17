@@ -12,7 +12,9 @@
 <p>
 	<strong>Contact number:</strong>
 	<?php echo $user->contact_number; ?></p>
-
+<p>
+	<strong>hospital_name:</strong>
+	<?php echo $user->hospital_name; ?></p>
 <p>
 	<strong>Address:</strong>
 	<?php echo $user->address; ?></p>

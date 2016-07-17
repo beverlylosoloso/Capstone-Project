@@ -2,13 +2,16 @@
     <div class="container" id="login-block">
         <div class="row">
             <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
-                
                 <div class="login-box clearfix animated flipInY">
                     <div class="page-icon animated bounceInDown">
-                        <?php echo Asset::img('account/logo.jpg', ['alt' => 'Key logo']); ?>
-                        <?php Image::load("assets/img/account/logo.jpg"); ?>
-                        <?php Image::resize($width="1",$height="1",$keepar="false",$pad="false");?>
-                    </div> 
+                        <?php echo Asset::img('account/user-icon.png', ['alt' => 'Key icon']); ?>
+                        <?php Image::load("assets/img/account/user-icon.png"); ?>
+                    </div>
+                    <div class="login-logo">
+                        <a href="#?login-theme-3">
+                        	<?php echo Asset::img('account/login-logo.png', ['alt' => 'Key icon']); ?>
+                        </a>
+                    </div>  
                     <hr>
                     <div class="login-form">
                         <!-- BEGIN ERROR BOX -->
@@ -45,14 +48,14 @@
 									<span class="control-label"><?php echo $val->error('password')->get_message(':label cannot be blank'); ?></span>
 								<?php endif; ?>
 							</div>
-                            
+
                            <div class="actions">
-								<?php echo Form::submit(array('value'=>'Login', 'name'=>'submit', 'type'=> 'button','class' => 'btn btn-danger btn-transparent')); ?>
-                                <div class="nav navbar-nav pull-right">
-                                     <?php echo Html::anchor('admin/users/create_hospital', 'Register Now!', array('class' => 'btn btn-danger btn-transparent')); ?>
-                                 </div>
+								<?php echo Form::submit(array('value'=>'Login', 'name'=>'submit', 'class' => 'btn btn-login ladda-button	')); ?>
 							</div>
-						<?php echo Form::close(); ?>
+							<?php echo Form::close(); ?>
+                        <div class="login-links">
+                            <a href="registration.php"><strong>Register Now!</strong></a>
+                        </div>
                     </div>
                 </div>
             </div>
