@@ -1,13 +1,12 @@
 <!-- BEGIN LOGIN BOX -->
-    <div class="container" id="login-block">
+<div class="page-icon animated bounceInDown">   
+ <center><h1>'Helps you find the Nearest Medical Establishments'</h1></center>
+  </div>
+    <div class="container" id="login-block" border="5">
         <div class="row">
             <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
-                
-                <div class="login-box clearfix animated flipInY">
-                    <div class="page-icon animated bounceInDown">
-                        <?php echo Asset::img('account/logo.jpg', ['alt' => 'Key logo']); ?>
-                        <?php Image::load("assets/img/account/logo.jpg"); ?>
-                        <?php Image::resize($width="1",$height="1",$keepar="false",$pad="false");?>
+                <div class="login-box clearfix animated flipInY" border="5">
+                    <div class="page-icon animated bounceInDown">   
                     </div> 
                     <hr>
                     <div class="login-form">
@@ -49,8 +48,9 @@
                            <div class="actions">
 								<?php echo Form::submit(array('value'=>'Login', 'name'=>'submit', 'type'=> 'button','class' => 'btn btn-danger btn-transparent')); ?>
                                 <div class="nav navbar-nav pull-right">
-                                     <?php echo Html::anchor('admin/users/create_hospital', 'Register Now!', array('class' => 'btn btn-danger btn-transparent')); ?>
-                                 </div>
+                                     <?php echo Html::Anchor('signings/create', 'Register Now!', array('class' => 'btn btn-danger btn-transparent')); ?>
+                                 </div> <br><br><br>
+                                 <?php echo Html::anchor('admin/login/', 'Forgot password?'); ?> 
 							</div>
 						<?php echo Form::close(); ?>
                     </div>

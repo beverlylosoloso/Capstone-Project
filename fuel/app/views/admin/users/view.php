@@ -17,9 +17,7 @@
 	<strong>Address:</strong>
 	<?php echo $user->address; ?></p>
 
-<p>
-	<strong>url:</strong>
-	<?php echo $user->url; ?></p>
+
 
 <?php echo Html::anchor('admin/users/edit/'.$user->id, 'Edit'); ?> |
 <?php echo Html::anchor('admin/users', 'Back'); ?>

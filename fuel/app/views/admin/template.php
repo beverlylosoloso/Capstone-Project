@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="" name="description" />
     <meta content="themes-lab" name="author" />
-	<title><?php echo $title; ?></title>
+	<title><?php echo $title;?></title>
 
 
 	<!-- links -->
@@ -37,7 +37,7 @@
 		$(function(){ $('.topbar').dropdown(); });
 	</script>
 </head>
-<body  class="login fade-in" data-page="login">
+<body  class="login fade-in" data-page="	">
 
 	<?php if ($current_user): ?>
 	<div class="navbar navbar-inverse navbar-fixed-top">
@@ -64,7 +64,7 @@
 							
 							//START DOH ACCESS
 							if ($current_user->role_id == 2) {
-								if ($section_segment == "registereds" || $section_segment == "pendings") {
+								if ($section_segment == "registereds" || $section_segment == "pendings" || $section_segment == "infos" || $section_segment == "medabaws" || $section_segment == "deactivates" ) {
 									$section_title = Inflector::humanize($section_segment);
 									?>
 									<li class="<?php echo Uri::segment(2) == $section_segment ? 'active' : '' ?>">
@@ -75,9 +75,9 @@
 							}
 							//END DOH ACCESS
 
-							//START HOSPITAL ACCESS
-							if ($current_user->role_id == 1) {
-								if ($section_segment == "insurances" || $section_segment == "personal_info") {
+							//START ADMIN ACCESS
+							if ($current_user->role_id == 3) {
+								if ($section_segment == "insurances" || $section_segment == "registereds" || $section_segment == "pendings" || $section_segment == "users" || $section_segment == "medabaws" || $section_segment == "deactivates" ) {
 									$section_title = Inflector::humanize($section_segment);
 									?>
 									<li class="<?php echo Uri::segment(2) == $section_segment ? 'active' : '' ?>">
@@ -86,18 +86,27 @@
 									<?php
 								}
 							}
-							//END HOSPITAL ACCESS
+							//END ADMIN ACCESS 
 
-							//START ADMIN ACCESS
-							if ($current_user->role_id == 3) {
-								$section_title = Inflector::humanize($section_segment);
-								?>
-								<li class="<?php echo Uri::segment(2) == $section_segment ? 'active' : '' ?>">
-									<?php echo Html::anchor('admin/'.$section_segment, $section_title) ?>
-								</li>
-								<?php
+							//START HOSPITAL ACCESS
+							if ($current_user->role_id == 1){
+							if ($current_user->role_id == 1 && $current_user->pend == 'activate') {
+								if ($section_segment == "insurances" || $section_segment == "infos") {
+									$section_title = Inflector::humanize($section_segment);
+									?>
+									<li class="<?php echo Uri::segment(2) == $section_segment ? 'active' : '' ?>">
+										<?php echo Html::anchor('admin/'.$section_segment, $section_title) ?>
+									</li>
+									<?php
+								}
 							}
-							//END AMIN ACCESS 
+							else
+							{
+								Response::redirect('admin/logout');
+
+							}
+						}
+							//END HOSPITAL ACCESS
 						}
 					?>
 				</ul>
@@ -117,7 +126,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1><?php echo $title; ?></h1>
+				<h1><?php if($title == "Users"){
+					$title = "User";
+					echo $title;
+				}else{
+					echo $title;
+				} ?>
+				</h1>
 				<hr>
 <?php if (Session::get_flash('success')): ?>
 				<div class="alert alert-success alert-dismissable">
@@ -149,11 +164,6 @@
 			</p>
 		</footer>
 	</div>
-
-
-
-
-
 	 <!-- BEGIN MANDATORY SCRIPTS -->
     <script src="assets/plugins/jquery-1.11.js"></script>
     <script src="assets/plugins/jquery-migrate-1.2.1.js"></script>
@@ -180,11 +190,6 @@
     });
 });
     </script>
-
-
-
-
-
-
 </body>
 </html>
+

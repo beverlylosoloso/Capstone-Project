@@ -98,6 +98,38 @@ class Controller_Admin extends Controller_Base
 		$this->template->content = View::forge('admin/dashboard');
 	}
 
+	public function register()
+	{
+
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('first_name', 'First name', 'required|xss_clean');
+		$this->form_validation->set_rules('last_name', 'Last name', 'required|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|xss_clean');
+		$this->form_validation->set_rules('password', 'Password', 'required|xss_clean');
+		$this->form_validation->set_rules('gender', 'Gender', 'required|alpha|xss_clean');
+
+		if ($this->form_validation->run() == FALSE) {
+			$data['page_title'] = 'JMC InfoBoard | Register';
+      		$this->load->view('site_header', $data);
+      		$this->load->view('site_nav');
+      		$this->load->view('signup_form');
+
+		} else {
+			$this->load->model('User');
+			$this->User->registerUser(array('first_name'=>$_POST['first_name'],
+											'last_name'=>$_POST['last_name'],
+											'email'=>$_POST['email'],
+											'password'=>$_POST['password'],
+											'gender'=>$_POST['gender']));
+
+			$location = base_url('index.php/site/login_page');
+			header("Location: $location");
+		}
+		
+		
+	}
+
 }
 
 
